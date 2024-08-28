@@ -5,3 +5,17 @@ window.addEventListener('scroll', () => {
         location.reload();
     }
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // Hide the loading screen once everything is loaded
+    const loadingScreen = document.getElementById('loading-screen');
+
+    // Simulate loading delay
+    setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        videoContainer.style.display = 'flex';
+    }, 3000); // Adjust the delay as needed
+
+    setTimeout(() => {
+        controls.classList.add('hidden');
+    }, 2000);
+});

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Farsan&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 /* General Styles */
 * {
     display: border-box;
@@ -80,10 +81,10 @@ a {
 }
 /* Text Styling */
 .text {
-    font-family: "Caveat", cursive;
+    font-family: "Merienda", cursive;
     font-optical-sizing: auto;
     font-style: normal;
-    font-size: 45px;
+    font-size: 35px;
     word-wrap: break-word;
     z-index: 5;
     color: rgb(123, 36, 36);
@@ -91,9 +92,9 @@ a {
 }
 
 .reading-font{
-    font-family: "Merienda", cursive;
-    font-optical-sizing: auto;
-    font-style: normal;
+  font-family: "Farsan", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* Video Background */
@@ -178,6 +179,37 @@ a {
     }
 }
 
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.5s ease;
+}
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loading-screen .spinner {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 /* Responsive Design - Tablet */
 @media (max-width: 750px) {
     .content img{
@@ -238,6 +270,14 @@ a {
         border-radius: 15px;
         overflow-y: auto;
         max-height: 100vh;
+    }
+    .loading-screen .spinner {
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #3498db;
+      border-radius: 50%;
+      width: 75px;
+      height: 75px;
+      animation: spin 2s linear infinite;
     }
 }
 
