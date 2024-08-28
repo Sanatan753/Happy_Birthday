@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+/* General Styles */
+* {
+    display: border-box;
+}
+/* Hide scrollbar for all browsers */
+.hide-scrollbar {
+    overflow: scroll; /* Allows scrolling */
+}
+
+/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+/* Hide scrollbar in Firefox */
+.hide-scrollbar {
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
+
+/* Hide scrollbar in Internet Explorer and Edge */
+.hide-scrollbar {
+    -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    height: 100%;
+    overflow: hidden;
+}
+h1{
+    font-family: "Nerko One", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 65px;
+}
+h1, h2, p {
+    margin: 0 0 15px 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.outer-background {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 100%;
+    background-image: url('media/images/Stary\ Papier.jpg'); /* Replace with your background image path */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Tablet Reader */
+.tablet-reader {
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+.tablet-reader::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+/* Text Styling */
+.text {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 45px;
+    word-wrap: break-word;
+    z-index: 5;
+    color: rgb(123, 36, 36);
+    text-align: center;
+}
+
+.reading-font{
+    font-family: "Merienda", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#bg-video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Layout Grid */
+.header, .main, .footer {
+    padding: 15px;
+}
+
+.header {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.content {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: float 4s ease-in-out infinite;
+    z-index: 4;
+}
+.content img{
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+}
+#top-center{
+    position: absolute;
+}
+#left-center{
+    position: absolute;
+}
+#right-center{
+    position: absolute;
+}
+#bottom-center{
+    position: absolute;
+}
+
+.Hm{
+    position: absolute;
+    bottom:2%;
+    right:5%;
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+}
+.Hm img{
+    height: 250px;
+    width: 250px;
+}
+/* Floating Animation */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 750px) {
+    .content img{
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 50%;
+    }
+    .text {
+        font-family: "Caveat", cursive;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-size: 25px;
+        word-wrap: break-word;
+        z-index: 5;
+        color: rgb(123, 36, 36);
+        text-align: center;
+    }
+    .Hm img{
+        height: 100px;
+        width: 100px;
+    }
+    @keyframes revolve1 {
+        0% {
+          transform: rotate(0deg) translateX(100px) rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg) translateX(100px) rotate(-360deg);
+        }
+      }
+      @keyframes revolve2 {
+          0% {
+            transform: rotate(90deg) translateX(100px) rotate(-90deg);
+          }
+          100% {
+            transform: rotate(450deg) translateX(100px) rotate(-450deg);
+          }
+      }
+      @keyframes revolve3 {
+        0% {
+          transform: rotate(180deg) translateX(100px) rotate(-180deg);
+        }
+        100% {
+          transform: rotate(540deg) translateX(100px) rotate(-540deg);
+        }
+      }
+      @keyframes revolve4 {
+        0% {
+          transform: rotate(270deg) translateX(100px) rotate(-270deg);
+        }
+        100% {
+          transform: rotate(630deg) translateX(100px) rotate(-630deg);
+        }
+      }
+      .tablet-reader {
+        width: 70%;
+        max-width: 380px;
+        padding: 20px;
+        border-radius: 15px;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+}
+
+/* Responsive Design - Desktop */
+@media (min-width: 1024px) {
+    .main {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.orbit1 {
+    animation: revolve1 10s linear infinite;
+  }
+  
+.orbit2 {
+    animation: revolve2 10s linear infinite;
+  }
+  
+.orbit3 {
+    animation: revolve3 10s linear infinite;
+  }
+  
+.orbit4 {
+    animation: revolve4 10s linear infinite;
+  }
+  
+  @keyframes revolve1 {
+    0% {
+      transform: rotate(0deg) translateX(200px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(200px) rotate(-360deg);
+    }
+  }
+  @keyframes revolve2 {
+      0% {
+        transform: rotate(90deg) translateX(200px) rotate(-90deg);
+      }
+      100% {
+        transform: rotate(450deg) translateX(200px) rotate(-450deg);
+      }
+  }
+  @keyframes revolve3 {
+    0% {
+      transform: rotate(180deg) translateX(200px) rotate(-180deg);
+    }
+    100% {
+      transform: rotate(540deg) translateX(200px) rotate(-540deg);
+    }
+  }
+  @keyframes revolve4 {
+    0% {
+      transform: rotate(270deg) translateX(200px) rotate(-270deg);
+    }
+    100% {
+      transform: rotate(630deg) translateX(200px) rotate(-630deg);
+    }
+  } 
