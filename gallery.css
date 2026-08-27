@@ -1,0 +1,217 @@
+/* ===== Gallery Reset ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== Body / Background ===== */
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f2f0ed;
+    background-image: url('media/images/virtual_bg_01_unit06.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* White overlay to make background very pale */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(245, 243, 240, 0.88);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ===== Gallery Viewport ===== */
+#gallery-viewport {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+#gallery-viewport:active {
+    cursor: grabbing;
+}
+
+/* ===== Back Button ===== */
+.gallery-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    padding: 8px 18px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.gallery-back:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: scale(1.05);
+}
+
+/* ===== Gallery Card Hover ===== */
+.gallery-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    background: rgba(220, 215, 210, 0.15);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.gallery-card:hover {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Hover overlay with image name */
+.gallery-card .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 10px 10px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.gallery-card:hover .card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover zoom on the image inside the card */
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.06);
+}
+
+/* ===== Lightbox ===== */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.4);
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox.active .lightbox-img {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease, transform 0.25s ease;
+    z-index: 1001;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .gallery-nav {
+        padding: 4px;
+        font-size: 12px;
+        bottom: 15px;
+    }
+    .nav-item {
+        padding: 7px 14px;
+    }
+    .lightbox-close {
+        top: 12px;
+        left: 12px;
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-nav {
+        font-size: 11px;
+        gap: 0;
+        padding: 3px;
+        bottom: 12px;
+    }
+    .nav-item {
+        padding: 6px 10px;
+    }
+}

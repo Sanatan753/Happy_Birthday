@@ -3,28 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Farsan&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-/* General Styles */
+
+/* ===== General Styles ===== */
 * {
-    display: border-box;
-}
-/* Hide scrollbar for all browsers */
-.hide-scrollbar {
-    overflow: scroll; /* Allows scrolling */
-}
-
-/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
-.hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar */
-}
-
-/* Hide scrollbar in Firefox */
-.hide-scrollbar {
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-}
-
-/* Hide scrollbar in Internet Explorer and Edge */
-.hide-scrollbar {
-    -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+    box-sizing: border-box;
 }
 
 body, html {
@@ -36,12 +18,14 @@ body, html {
     height: 100%;
     overflow: hidden;
 }
-h1{
+
+h1 {
     font-family: "Nerko One", cursive;
     font-weight: 400;
     font-style: normal;
     font-size: 65px;
 }
+
 h1, h2, p {
     margin: 0 0 15px 0;
 }
@@ -51,14 +35,42 @@ a {
     text-decoration: none;
 }
 
-.outer-background {
+/* ===== Scroll Container ===== */
+.scroll-container {
+    position: fixed;
+    inset: 0;
+    overflow: hidden; /* Locked until envelope opens */
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    z-index: 5;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-container.scrollable {
+    overflow-y: auto;
+}
+
+/* ===== Sections ===== */
+.section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+}
+
+/* ===== Parchment / Outer Background ===== */
+.outer-background {
     width: 600px;
-    height: 100%;
-    background-image: url('media/images/Stary\ Papier.jpg'); /* Replace with your background image path */
+    max-height: 80vh;
+    background-image: url('media/images/iphone_bg_02.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -67,19 +79,20 @@ a {
     padding: 20px;
 }
 
-/* Tablet Reader */
+/* ===== Tablet Reader ===== */
 .tablet-reader {
     width: 80%;
     max-width: 500px;
     padding: 20px;
     border-radius: 15px;
     overflow-y: auto;
-    max-height: 80vh;
+    max-height: 70vh;
 }
 .tablet-reader::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar */
+    display: none;
 }
-/* Text Styling */
+
+/* ===== Text Styling ===== */
 .text {
     font-family: "Merienda", cursive;
     font-optical-sizing: auto;
@@ -91,13 +104,13 @@ a {
     text-align: center;
 }
 
-.reading-font{
-  font-family: "Farsan", cursive;
-  font-weight: 400;
-  font-style: normal;
+.reading-font {
+    font-family: "Farsan", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
-/* Video Background */
+/* ===== Video Background ===== */
 .video-background {
     position: fixed;
     top: 0;
@@ -119,100 +132,365 @@ a {
     transform: translate(-50%, -50%);
 }
 
-/* Layout Grid */
-.header, .main, .footer {
-    padding: 15px;
-}
-
+/* ===== Layout ===== */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    z-index: 15;
 }
 
-
-
+/* ===== Orbiting Images ===== */
 .content {
+    position: fixed;
+    top: 0px;
+    left: 0px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.5);
-    animation: float 4s ease-in-out infinite;
     z-index: 4;
+    --orbit-radius: 200px;
+    animation: revolve 10s linear infinite;
 }
-.content img{
+.content img {
     max-width: 150px;
     max-height: 150px;
     border-radius: 50%;
-}
-#top-center{
-    position: absolute;
-}
-#left-center{
-    position: absolute;
-}
-#right-center{
-    position: absolute;
-}
-#bottom-center{
-    position: absolute;
+    display: block;
 }
 
-.Hm{
-    position: absolute;
-    bottom:2%;
-    right:5%;
+.orbit1 { animation-delay: 0s; }
+.orbit2 { animation-delay: -2.5s; }
+.orbit3 { animation-delay: -5s; }
+.orbit4 { animation-delay: -7.5s; }
+
+/* ===== Hatsune Miku ===== */
+.Hm {
+    position: fixed;
+    bottom: 2%;
+    right: 5%;
     animation: float 3s ease-in-out infinite;
     z-index: 10;
+    cursor: pointer;
+    transition: filter 0.3s ease;
 }
-.Hm img{
+.Hm:hover {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+}
+.Hm img {
     height: 250px;
     width: 250px;
 }
-/* Floating Animation */
-@keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-50px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
+
+/* Gallery badge on Miku */
+.gallery-badge {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 12px;
+    pointer-events: none;
+    white-space: nowrap;
 }
 
+/* ===== Scroll Hint ===== */
+.scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+.scroll-hint span {
+    display: inline-block;
+    padding: 12px 28px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    font-family: "Merienda", cursive;
+    font-size: 16px;
+    backdrop-filter: blur(8px);
+    animation: bounce-hint 2s ease-in-out infinite;
+}
+
+@keyframes bounce-hint {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50%      { transform: translateY(-10px); opacity: 1; }
+}
+
+/* ===== Surprise Button (last section) ===== */
+.surprise-btn {
+    position: absolute;
+    bottom: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    font-family: "Merienda", cursive;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: blur(8px);
+    z-index: 20;
+}
+
+.surprise-btn:hover {
+    background: rgba(0, 0, 0, 0.85);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.surprise-btn:active {
+    transform: scale(0.97);
+}
+
+/* ===== Envelope ===== */
+.envelope-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    cursor: pointer;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.envelope-wrapper.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ===== Envelope & Character ===== */
+.envelope-character-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: flutter 3s ease-in-out infinite;
+}
+
+.envelope-character-container.opened {
+    animation: none;
+}
+
+.envelope-character {
+    position: relative;
+    width: 500px; 
+    height: auto;
+    z-index: 1; /* Behind envelope */
+    pointer-events: none;
+    display: block;
+}
+
+.envelope {
+    position: absolute;
+    width: 210px; 
+    height: 143px;
+    perspective: 900px;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+    z-index: 2;
+    /* Shift envelope to the left side of Miku and down towards her feet */
+    left: -20px;
+    bottom: 75px;
+}
+
+/* Envelope body — the visible front */
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 105px;
+    background: linear-gradient(145deg, #f5e6d0, #e8d5b8);
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+/* Heart seal on front */
+.envelope-seal {
+    font-size: 36px;
+    transition: transform 0.3s ease;
+}
+.envelope:hover .envelope-seal {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Inner back wall — visible when flap opens */
+.envelope-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 143px;
+    background: linear-gradient(180deg, #fff8ef 0%, #f5e6d0 40%, #e8d5b8 100%);
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0 0 8px 8px;
+    z-index: 1;
+}
+
+/* Letter inside the envelope */
+.envelope-letter {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 165px;
+    height: 86px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Merienda", cursive;
+    color: rgb(123, 36, 36);
+    font-size: 14px;
+    transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
+}
+
+.envelope.opened .envelope-letter {
+    transform: translateX(-50%) translateY(-135px);
+}
+
+/* Triangular flap */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 79px;
+    background: linear-gradient(180deg, #d4c4a8, #c9b898);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    backface-visibility: hidden;
+    z-index: 4;
+}
+
+.envelope.opened .envelope-flap {
+    transform: rotateX(-180deg);
+}
+
+/* "Click to Open" hint text */
+.envelope-text {
+    color: white;
+    font-family: "Merienda", cursive;
+    font-size: 18px;
+    margin-top: 35px;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+    animation: pulse-glow 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ===== Content Reveal (envelope) ===== */
+.reveal-item {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease-out;
+}
+
+.reveal-item.revealed {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ===== Scroll Reveal Animation ===== */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-50px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes flutter {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33%      { transform: translateY(-6px) rotate(1.5deg); }
+    66%      { transform: translateY(-3px) rotate(-1.5deg); }
+}
+
+@keyframes revolve {
+    0%   { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}
+
+/* ===== Loading Screen ===== */
 .loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  transition: opacity 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
 }
 .loading-screen.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 .loading-screen .spinner {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  animation: spin 2s linear infinite;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
 }
+
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-/* Responsive Design - Tablet */
+
+/* ===== Responsive — Mobile ===== */
 @media (max-width: 750px) {
-    .content img{
+    .content img {
         max-width: 100px;
         max-height: 100px;
         border-radius: 50%;
@@ -227,112 +505,76 @@ a {
         color: rgb(123, 36, 36);
         text-align: center;
     }
-    .Hm img{
+    .Hm img {
         height: 100px;
         width: 100px;
     }
-    @keyframes revolve1 {
-        0% {
-          transform: rotate(0deg) translateX(100px) rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg) translateX(100px) rotate(-360deg);
-        }
-      }
-      @keyframes revolve2 {
-          0% {
-            transform: rotate(90deg) translateX(100px) rotate(-90deg);
-          }
-          100% {
-            transform: rotate(450deg) translateX(100px) rotate(-450deg);
-          }
-      }
-      @keyframes revolve3 {
-        0% {
-          transform: rotate(180deg) translateX(100px) rotate(-180deg);
-        }
-        100% {
-          transform: rotate(540deg) translateX(100px) rotate(-540deg);
-        }
-      }
-      @keyframes revolve4 {
-        0% {
-          transform: rotate(270deg) translateX(100px) rotate(-270deg);
-        }
-        100% {
-          transform: rotate(630deg) translateX(100px) rotate(-630deg);
-        }
-      }
-      .tablet-reader {
-        width: 70%;
+    .content {
+        --orbit-radius: 120px;
+        top: 50vh;
+        left: -30px;
+        margin-top: -50px;
+    }
+    .outer-background {
+        width: 85vw;
+    }
+    .tablet-reader {
+        width: 90%;
         max-width: 380px;
-        padding: 20px;
+        padding: 15px;
         border-radius: 15px;
         overflow-y: auto;
-        max-height: 100vh;
+        max-height: 65vh;
     }
     .loading-screen .spinner {
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid #3498db;
-      border-radius: 50%;
-      width: 75px;
-      height: 75px;
-      animation: spin 2s linear infinite;
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        animation: spin 2s linear infinite;
+    }
+    h1 {
+        font-size: 40px;
+    }
+
+    /* Smaller envelope on mobile */
+    .envelope-character {
+        width: 100%;
+        max-width: 380px;
+    }
+    .envelope {
+        width: 200px;
+        height: 140px;
+        left: -10px; /* Bring it closer so it doesn't go off-screen */
+    }
+    .envelope-body {
+        height: 105px;
+    }
+    .envelope-inner {
+        height: 140px;
+    }
+    .envelope-flap {
+        height: 80px;
+    }
+    .envelope-letter {
+        width: 160px;
+        height: 90px;
+        font-size: 14px;
+        bottom: 15px;
+    }
+    .envelope.opened .envelope-letter {
+        transform: translateX(-50%) translateY(-130px);
+    }
+    .envelope-seal {
+        font-size: 36px;
+    }
+    .surprise-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .scroll-hint span {
+        padding: 10px 20px;
+        font-size: 14px;
     }
 }
-
-/* Responsive Design - Desktop */
-@media (min-width: 1024px) {
-    .main {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.orbit1 {
-    animation: revolve1 10s linear infinite;
-  }
-  
-.orbit2 {
-    animation: revolve2 10s linear infinite;
-  }
-  
-.orbit3 {
-    animation: revolve3 10s linear infinite;
-  }
-  
-.orbit4 {
-    animation: revolve4 10s linear infinite;
-  }
-  
-  @keyframes revolve1 {
-    0% {
-      transform: rotate(0deg) translateX(200px) rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg) translateX(200px) rotate(-360deg);
-    }
-  }
-  @keyframes revolve2 {
-      0% {
-        transform: rotate(90deg) translateX(200px) rotate(-90deg);
-      }
-      100% {
-        transform: rotate(450deg) translateX(200px) rotate(-450deg);
-      }
-  }
-  @keyframes revolve3 {
-    0% {
-      transform: rotate(180deg) translateX(200px) rotate(-180deg);
-    }
-    100% {
-      transform: rotate(540deg) translateX(200px) rotate(-540deg);
-    }
-  }
-  @keyframes revolve4 {
-    0% {
-      transform: rotate(270deg) translateX(200px) rotate(-270deg);
-    }
-    100% {
-      transform: rotate(630deg) translateX(200px) rotate(-630deg);
-    }
-  } 

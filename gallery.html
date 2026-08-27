@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="gallery-viewport" id="gallery-viewport"></div>
+
+    <a href="home.html" class="gallery-back" title="Back to Home">← Back</a>
+
+    <nav class="gallery-nav">
+        <a href="home.html" class="nav-item active">Index</a>
+        <span class="nav-item">Works</span>
+        <span class="nav-item">Shots</span>
+        <span class="nav-item">Services</span>
+        <span class="nav-item">About</span>
+    </nav>
+
+    <!-- Lightbox overlay for fullscreen image -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">✕</button>
+        <img class="lightbox-img" id="lightbox-img" alt="">
+    </div>
+
+    <script src="gallery.js"></script>
+</body>
+</html>
+
